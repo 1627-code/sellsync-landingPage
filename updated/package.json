@@ -1,0 +1,36 @@
+{
+  "name": "",
+  "version": "",
+  "devDependencies": {
+    "@types/node": "^25.3.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "vercel-build": "prisma generate"
+  },
+  "type": "module",
+  "dependencies": {
+    "@google/genai": "^1.44.0",
+    "@prisma/adapter-pg": "^7.4.2",
+    "@prisma/client": "^7.4.2",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "crypto": "^1.0.1",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "groq-sdk": "^1.1.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.1.1",
+    "node-cache": "^5.1.2",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^8.0.1",
+    "nodemon": "^3.1.14",
+    "ollama": "^0.6.3",
+    "pdfkit": "^0.17.2",
+    "pg": "^8.21.0",
+    "prisma": "^7.4.2"
+  }
+}

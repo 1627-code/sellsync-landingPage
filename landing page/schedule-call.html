@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schedule a call | SellSync</title>
+  <link rel="stylesheet" href="schedule-call.css" />
+  <link rel="stylesheet" href="chatbot.css" />
+</head>
+<body>
+  <div class="schedule-wrapper">
+    <div class="schedule-card">
+      <header class="schedule-header">
+        <h1>Talk to the SellSync Team</h1>
+        <p class="sub">Schedule a quick call to see how SellSync can help your business.</p>
+      </header>
+
+      <div id="scheduleMessage" class="form-message" role="alert" aria-live="polite"></div>
+
+      <form id="scheduleForm" class="schedule-form" novalidate>
+        <div class="field">
+          <label for="fullName">Full Name <span class="req">*</span></label>
+          <input type="text" id="fullName" name="fullName" required placeholder=" Zanchi Glory" autocomplete="name" />
+          <span class="field-error" id="fullNameError"></span>
+        </div>
+        <div class="field">
+          <label for="email">Email Address <span class="req">*</span></label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com" autocomplete="email" inputmode="email" />
+          <span class="field-error" id="emailError"></span>
+        </div>
+        <div class="field">
+          <label for="phone">Phone Number <span class="req">*</span></label>
+          <input type="tel" id="phone" name="phone" required placeholder="WhatsApp-friendly number" autocomplete="tel" inputmode="tel" />
+          <span class="field-error" id="phoneError"></span>
+        </div>
+        <div class="field">
+          <label for="businessName">Business Name <span class="req">*</span></label>
+          <input type="text" id="businessName" name="businessName" required placeholder="What is the name of your shop or business?" autocomplete="organization" />
+          <span class="field-error" id="businessNameError"></span>
+        </div>
+        <div class="field">
+          <label for="businessType">Business Type <span class="req">*</span></label>
+          <select id="businessType" name="businessType" required>
+            <option value="">Choose one</option>
+            <option value="Retail Shop">Retail Shop</option>
+            <option value="Mini-Mart">Mini-Mart</option>
+            <option value="Pharmacy">Pharmacy</option>
+            <option value="Fashion / Clothing">Fashion / Clothing</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Cosmetics">Cosmetics</option>
+            <option value="Other">Other</option>
+          </select>
+          <span class="field-error" id="businessTypeError"></span>
+        </div>
+        <div class="field">
+          <label>What would you like to discuss? <span class="req">*</span></label>
+          <div class="intent-options">
+            <label class="intent-opt"><input type="checkbox" name="intent" value="How SellSync works" /> How SellSync works</label>
+            <label class="intent-opt"><input type="checkbox" name="intent" value="Pricing & plans" /> Pricing & plans</label>
+            <label class="intent-opt"><input type="checkbox" name="intent" value="Inventory management" /> Inventory management</label>
+            <label class="intent-opt"><input type="checkbox" name="intent" value="Sales tracking" /> Sales tracking</label>
+            <label class="intent-opt"><input type="checkbox" name="intent" value="Getting started" /> Getting started</label>
+            <label class="intent-opt"><input type="checkbox" name="intent" value="Other" /> Other</label>
+          </div>
+          <span class="field-error" id="intentError"></span>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="preferDate">Preferred Call Date <span class="req">*</span></label>
+            <input type="date" id="preferDate" name="preferDate" required />
+            <span class="field-error" id="preferDateError"></span>
+          </div>
+          <div class="field">
+            <label for="preferTime">Preferred Time <span class="req">*</span></label>
+            <select id="preferTime" name="preferTime" required>
+              <option value="">Choose</option>
+              <option value="Morning (9am–12pm)">Morning (9am–12pm)</option>
+              <option value="Afternoon (12pm–4pm)">Afternoon (12pm–4pm)</option>
+              <option value="Evening (4pm–7pm)">Evening (4pm–7pm)</option>
+            </select>
+            <span class="field-error" id="preferTimeError"></span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="extra">Anything else you’d like us to know? <span class="opt">(optional)</span></label>
+          <textarea id="extra" name="extra" placeholder="Tell us about your business or your challenge (optional)" rows="3"></textarea>
+          <span class="field-error" id="extraError"></span>
+        </div>
+        <p class="trust-line">Your information is safe and will not be shared.</p>
+        <button type="submit" class="btn-primary" id="submitBtn">
+          <span class="btn-text">Schedule a Call</span>
+          <span class="btn-loader" aria-hidden="true"></span>
+        </button>
+        <p class="secondary-cta">We’ll contact you via phone or WhatsApp.</p>
+      </form>
+
+      <footer class="schedule-footer">
+        <a href="business.html#contact" class="back-link">← Back to Get in touch</a>
+      </footer>
+    </div>
+  </div>
+
+  <script src="schedule-call.js"></script>
+  <script src="chatbot.js"></script>
+</body>
+</html>

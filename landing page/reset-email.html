@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reset Password | SellSync</title>
+  <link rel="stylesheet" href="login.css?v=4" />
+  <link rel="stylesheet" href="reset-email.css" />
+</head>
+<body>
+  <div class="login-container">
+    <div class="left-panel">
+      <div class="brand-content">
+        <h1>SellSync</h1>
+        <p>One platform. Total retail control.</p>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="form-wrapper">
+        <h2>Reset your password</h2>
+        <p class="subtitle">Enter your email address and we'll send you a reset link.</p>
+
+        <div id="formMessage" class="form-message" role="alert" aria-live="polite"></div>
+
+        <form id="resetForm" novalidate>
+          <div class="field">
+            <label for="resetEmail">Email</label>
+            <input type="email" id="resetEmail" name="email" required placeholder="name@mail.com" autocomplete="email" />
+            <span class="field-error" id="emailError"></span>
+          </div>
+
+          <button type="submit" class="btn-login" id="submitBtn">
+            <span class="btn-text">Send Reset Link</span>
+            <span class="btn-loader" aria-hidden="true"></span>
+          </button>
+
+          <p class="back-to-login"><a href="login.html">Back to Sign In</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="success-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Check Your Email</h3>
+        <button class="close-modal" title="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="text-align: center; margin-bottom: 20px;">A reset link has been sent to your email address. Please check your inbox and click the link to continue.</p>
+        <div class="modal-actions">
+          <button class="btn-black" id="backToLoginBtn">Back to Sign In</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="reset-email.js"></script>
+</body>
+</html>

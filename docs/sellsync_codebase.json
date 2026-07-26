@@ -1,0 +1,423 @@
+{
+  "project": {
+    "name": "SellSync",
+    "type": "Point of Sale (POS) & Retail Management System",
+    "description": "Comprehensive POS and retail management platform for small to medium retail stores with AI-powered insights",
+    "primaryMarket": "Nigeria",
+    "currency": "NGN (Nigerian Naira)",
+    "compliance": ["FIRS VAT (Nigerian tax)", "Nigerian phone formats (+234)"],
+    "analysisDate": "2026-04-17"
+  },
+  "techStack": {
+    "frontend": {
+      "framework": "React 18.3",
+      "language": "TypeScript",
+      "buildTool": "Vite 7.2",
+      "styling": "Tailwind CSS 3.4",
+      "uiLibrary": "Radix UI (headless)",
+      "stateManagement": "React Context + useReducer",
+      "routing": "React Router DOM 6.30",
+      "charts": "Recharts 3.8",
+      "animations": "Framer Motion 12.38",
+      "forms": "React Hook Form 7.72 + Zod",
+      "pdfGeneration": "jsPDF 4.2",
+      "excelExport": "xlsx 0.18",
+      "icons": "Lucide React",
+      "notifications": "Sonner"
+    },
+    "backend": {
+      "runtime": "Node.js (ES Modules)",
+      "framework": "Express.js 5.2",
+      "database": "PostgreSQL",
+      "orm": "Prisma 7.4",
+      "authentication": "JWT + bcrypt",
+      "aiIntegration": ["Groq SDK", "Google GenAI"],
+      "email": "Nodemailer",
+      "fileUploads": "Multer",
+      "scheduledJobs": "node-cron",
+      "pdfGeneration": "PDFKit",
+      "caching": "node-cache"
+    }
+  },
+  "directoryStructure": {
+    "frontend": {
+      "path": "frontend/",
+      "description": "React + Vite frontend application",
+      "keyFiles": [
+        "frontend/src/app/App.tsx",
+        "frontend/src/main.tsx",
+        "frontend/package.json"
+      ],
+      "subDirectories": {
+        "app/components/": "Reusable UI and business components",
+        "app/pages/": "Page components (Dashboard, POS, Products, etc.)",
+        "app/state/": "React Context store (store.tsx)",
+        "lib/": "API service, utilities, receipt generation",
+        "animations/": "Framer Motion animation variants"
+      }
+    },
+    "backend": {
+      "path": "updated/",
+      "description": "Express.js backend API",
+      "keyFiles": [
+        "updated/src/app.js",
+        "updated/src/server.js",
+        "updated/prisma/schema.prisma"
+      ],
+      "subDirectories": {
+        "controller/": "Business logic (MVC pattern)",
+        "routes/": "API route definitions",
+        "services/": "External service integrations (AI, email, WhatsApp)",
+        "middleware/": "Express middleware (auth, validation)",
+        "jobs/": "Scheduled cron jobs",
+        "lib/": "Prisma database client",
+        "utils/": "Utility functions"
+      }
+    },
+    "landing": {
+      "path": "landing/",
+      "description": "Static marketing/landing pages"
+    }
+  },
+  "database": {
+    "orm": "Prisma",
+    "models": [
+      {
+        "name": "User",
+        "fields": ["id", "email", "password", "name", "phone", "role"],
+        "roles": ["OWNER", "MANAGER", "CASHIER"]
+      },
+      {
+        "name": "Store",
+        "fields": ["id", "name", "address", "phone", "email"]
+      },
+      {
+        "name": "Product",
+        "fields": ["id", "name", "sku", "barcode", "price", "costPrice", "category", "image", "expiryDate"]
+      },
+      {
+        "name": "Inventory",
+        "fields": ["id", "productId", "storeId", "quantity", "reorderPoint"]
+      },
+      {
+        "name": "Transaction",
+        "fields": ["id", "storeId", "userId", "totalAmount", "discount", "paymentMethod", "status"]
+      },
+      {
+        "name": "TransactionItem",
+        "fields": ["id", "transactionId", "productId", "quantity", "unitPrice", "totalPrice"]
+      },
+      {
+        "name": "Forecast",
+        "fields": ["id", "date", "predictedSales", "confidence"]
+      },
+      {
+        "name": "Insight",
+        "fields": ["id", "type", "content", "createdAt"]
+      },
+      {
+        "name": "Notification",
+        "fields": ["id", "userId", "type", "message", "read"]
+      },
+      {
+        "name": "ApiKey",
+        "fields": ["id", "name", "key", "userId"]
+      },
+      {
+        "name": "AuditLog",
+        "fields": ["id", "userId", "action", "details", "timestamp"]
+      },
+      {
+        "name": "SalesGoal",
+        "fields": ["id", "storeId", "targetAmount", "startDate", "endDate"]
+      }
+    ]
+  },
+  "features": {
+    "pointOfSale": {
+      "description": "Full-featured POS with barcode scanning and multiple payment methods",
+      "capabilities": [
+        "Product grid with search and filtering",
+        "Barcode/QR code scanning",
+        "Shopping cart with quantity adjustments",
+        "Multiple payment methods (Cash, POS, Bank Transfer, Linked Account, Account Balance)",
+        "Partial payment support",
+        "Discount application (fixed or percentage)",
+        "Receipt generation (PDF) with auto-download",
+        "SMS/Email receipt sharing",
+        "Voice input button",
+        "Offline mode detection"
+      ]
+    },
+    "dashboard": {
+      "description": "Real-time KPIs and business overview",
+      "metrics": [
+        "Revenue",
+        "Sales Count",
+        "Low Stock count",
+        "Products Sold"
+      ],
+      "components": [
+        "Animated counters",
+        "Sales trend chart (7-day)",
+        "AI insights panel",
+        "Top products table",
+        "Low stock alerts",
+        "Expiry alerts (30-day)",
+        "Live updates badge"
+      ]
+    },
+    "productsManagement": {
+      "description": "Complete product catalog management",
+      "capabilities": [
+        "Sortable product table",
+        "Search by name, SKU, category",
+        "Category filtering",
+        "Bulk selection",
+        "QR code generation",
+        "Add/Edit/Delete products",
+        "Stock level indicators",
+        "Expiry date tracking",
+        "Sales analytics per product",
+        "Bulk price editing"
+      ]
+    },
+    "reports": {
+      "description": "Comprehensive reporting and exports",
+      "types": [
+        "Sales reports (Excel multi-sheet)",
+        "Inventory reports (Excel)",
+        "Performance reports (Excel)",
+        "Financial summaries (PDF)",
+        "VAT Return Form (Nigerian FIRS)",
+        "Custom report builder"
+      ],
+      "features": [
+        "AI-powered insights",
+        "Report preview modal",
+        "Email/SMS sharing",
+        "Scheduled report generation"
+      ]
+    },
+    "inventory": {
+      "description": "Stock management and reordering",
+      "capabilities": [
+        "Stock level monitoring",
+        "Reorder point tracking",
+        "Bulk purchase order modal",
+        "Reorder table with supplier info",
+        "Low stock alerts"
+      ]
+    },
+    "aiFeatures": {
+      "description": "AI-powered business intelligence",
+      "capabilities": [
+        "Business insights (Groq LLM)",
+        "Sales forecasting",
+        "Stockout predictions",
+        "AI chat interface",
+        "Custom AI queries",
+        "Daily analytics (scheduled)"
+      ]
+    },
+    "staffManagement": {
+      "description": "Staff and attendance management",
+      "capabilities": [
+        "User roles (Owner, Manager, Cashier)",
+        "Role-based permissions",
+        "Staff CRUD operations",
+        "Attendance tracking (Clock In/Out)",
+        "Payroll management",
+        "Commission tracking",
+        "Salary settings"
+      ]
+    },
+    "notifications": {
+      "description": "In-app notification system",
+      "types": [
+        "Low stock alerts",
+        "Sales milestones",
+        "Refund requests",
+        "Expiry warnings"
+      ]
+    },
+    "settings": {
+      "description": "Application configuration",
+      "options": [
+        "Store profile management",
+        "Multi-store switching",
+        "Payment settings",
+        "Bank account linking",
+        "POS terminal management",
+        "Receipt defaults",
+        "Shift settings",
+        "Theme toggle (light/dark)",
+        "Preferences"
+      ]
+    },
+    "security": {
+      "description": "Authentication and authorization",
+      "features": [
+        "JWT authentication",
+        "Role-based access control",
+        "Audit logging",
+        "Email verification",
+        "Password reset flow"
+      ]
+    }
+  },
+  "apiEndpoints": {
+    "auth": {
+      "prefix": "/api/auth",
+      "routes": [
+        "POST /signup",
+        "POST /login",
+        "GET /profile",
+        "PUT /profile",
+        "POST /verify-email",
+        "POST /reset-password",
+        "PUT /password"
+      ]
+    },
+    "products": {
+      "prefix": "/api/products",
+      "routes": [
+        "GET /",
+        "POST /",
+        "GET /:id",
+        "PUT /:id",
+        "DELETE /:id",
+        "GET /barcode/:barcode",
+        "POST /bulk"
+      ]
+    },
+    "transactions": {
+      "prefix": "/api/transactions",
+      "routes": [
+        "GET /",
+        "POST /",
+        "GET /:id",
+        "POST /:id/refund"
+      ]
+    },
+    "analytics": {
+      "prefix": "/api/analytics",
+      "routes": [
+        "GET /dashboard",
+        "GET /sales",
+        "GET /inventory",
+        "GET /forecasts"
+      ]
+    },
+    "ai": {
+      "prefix": "/api/ai",
+      "routes": [
+        "POST /insights",
+        "POST /chat",
+        "POST /forecast"
+      ]
+    },
+    "cashiers": {
+      "prefix": "/api/cashiers",
+      "routes": [
+        "GET /",
+        "POST /",
+        "GET /:id",
+        "PUT /:id",
+        "DELETE /:id",
+        "POST /:id/clock-in",
+        "POST /:id/clock-out"
+      ]
+    },
+    "stores": {
+      "prefix": "/api/stores",
+      "routes": [
+        "GET /",
+        "POST /",
+        "GET /:id",
+        "PUT /:id",
+        "DELETE /:id"
+      ]
+    },
+    "notifications": {
+      "prefix": "/api/notifications",
+      "routes": [
+        "GET /",
+        "PUT /:id/read",
+        "PUT /read-all",
+        "DELETE /clear"
+      ]
+    },
+    "salesGoal": {
+      "prefix": "/api/salesGoal",
+      "routes": [
+        "GET /",
+        "POST /",
+        "PUT /:id",
+        "DELETE /:id"
+      ]
+    },
+    "auditLogs": {
+      "prefix": "/api/auditLogs",
+      "routes": [
+        "GET /",
+        "GET /export"
+      ]
+    }
+  },
+  "frontendPages": [
+    { "name": "Dashboard", "file": "DashboardPage.tsx", "purpose": "Main dashboard with KPIs, charts, insights" },
+    { "name": "POS", "file": "PosPage.tsx", "purpose": "Point of Sale interface" },
+    { "name": "Products", "file": "ProductsPage.tsx", "purpose": "Product catalog with analytics" },
+    { "name": "Inventory", "file": "InventoryPage.tsx", "purpose": "Stock management" },
+    { "name": "Transactions", "file": "TransactionsPage.tsx", "purpose": "Transaction history" },
+    { "name": "Reports", "file": "ReportsPage.tsx", "purpose": "Report generation and export" },
+    { "name": "Insights", "file": "InsightsPage.tsx", "purpose": "AI insights display" },
+    { "name": "Forecasts", "file": "ForecastsPage.tsx", "purpose": "Sales forecasting" },
+    { "name": "Staff", "file": "StaffPage.tsx", "purpose": "Staff management" },
+    { "name": "Settings", "file": "SettingsPage.tsx", "purpose": "App configuration" },
+    { "name": "Notifications", "file": "NotificationsPage.tsx", "purpose": "Notification center" },
+    { "name": "Login", "file": "LoginPage.tsx", "purpose": "Authentication" }
+  ],
+  "uiComponents": [
+    "button", "card", "input", "dialog", "table", "badge", "select", "tabs", 
+    "sheet", "switch", "checkbox", "calendar", "form", "tooltip", "popover", 
+    "dropdown-menu", "separator", "scroll-area", "avatar", "alert", "progress", 
+    "skeleton", "toggle", "accordion", "navigation-menu", "label", "breadcrumb", 
+    "pagination", "carousel", "chart", "alert-dialog", "context-menu", "drawer", 
+    "menubar", "radio-group", "sonner"
+  ],
+  "businessComponents": [
+    "Layout.tsx", "ProtectedRoute.tsx", "ProductCard.tsx", "ProductDetailModal.tsx",
+    "AddProductModal.tsx", "QrScannerModal.tsx", "QrGeneratorModal.tsx", "EmailShareModal.tsx",
+    "SMSShareModal.tsx", "ReportPreviewModal.tsx", "BulkPOModal.tsx", "ReorderTable.tsx",
+    "AskAIModal.tsx", "AIChatModal.tsx", "AISummaryCard.tsx", "ForecastChart.tsx",
+    "POSVoiceButton.tsx", "CustomReportModal.tsx", "ErrorBoundary.tsx"
+  ],
+  "backendControllers": [
+    "auth.controller.js", "product.controller.js", "transaction.controller.js",
+    "analytics.controller.js", "ai.controller.js", "cashier.controller.js",
+    "store.controller.js", "notification.controller.js", "salesGoal.controller.js",
+    "auditLog.controller.js", "chat.controller.js", "verifyEmail.controller.js",
+    "resetPassword.controller.js"
+  ],
+  "backendServices": [
+    { "name": "ai.service.js", "description": "Groq LLM integration for business insights" },
+    { "name": "analytics.service.js", "description": "Analytics data aggregation" },
+    { "name": "email.service.js", "description": "Email sending (verification, reset)" },
+    { "name": "whatsapp.service.js", "description": "WhatsApp notifications" }
+  ],
+  "environmentVariables": [
+    { "name": "DATABASE_URL", "description": "PostgreSQL connection string" },
+    { "name": "JWT_SECRET", "description": "JWT signing secret" },
+    { "name": "GROQ_API_KEY", "description": "Groq AI API key" },
+    { "name": "GOOGLE_GENERATIVE_AI_API_KEY", "description": "Google GenAI API key" },
+    { "name": "EMAIL_HOST", "description": "SMTP email host" },
+    { "name": "EMAIL_PORT", "description": "SMTP email port" },
+    { "name": "EMAIL_USER", "description": "SMTP email username" },
+    { "name": "EMAIL_PASS", "description": "SMTP email password" },
+    { "name": "WHATSAPP_API_URL", "description": "WhatsApp API endpoint" },
+    { "name": "WHATSAPP_API_KEY", "description": "WhatsApp API key" },
+    { "name": "FRONTEND_URL", "description": "Frontend URL for CORS" }
+  ]
+}

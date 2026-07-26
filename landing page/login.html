@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to SellSync | Login</title>
+  <link rel="stylesheet" href="login.css?v=4" />
+</head>
+<body>
+  <div class="login-container">
+    <div class="left-panel">
+      <div class="brand-content">
+        <h1>SellSync</h1>
+        <p>One platform. Total retail control.</p>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="form-wrapper">
+        <h2>Welcome back to <span>SellSync</span></h2>
+        <p class="subtitle">Sign in to continue to your dashboard</p>
+
+        <div id="formMessage" class="form-message" role="alert" aria-live="polite"></div>
+
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="name@mail.com" autocomplete="email" />
+            <span class="field-error" id="emailError"></span>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="password-wrap">
+              <input type="password" id="password" name="password" required placeholder="Your SellSync password" autocomplete="current-password" />
+              <button type="button" class="toggle-password" id="togglePassword" aria-label="Show password" title="Show password">
+                <span class="icon-eye" aria-hidden="true"></span>
+                <span class="icon-eye-off" aria-hidden="true"></span>
+              </button>
+            </div>
+            <span class="field-error" id="passwordError"></span>
+            <span class="caps-warning" id="capsWarning" aria-live="polite">Caps Lock is on</span>
+          </div>
+
+          <div class="options">
+            <label class="remember">
+              <input type="checkbox" name="remember" />
+              <span>Remember me</span>
+            </label>
+            <a href="reset-email.html" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn-login" id="submitBtn">
+            <span class="btn-text">Sign in</span>
+            <span class="btn-loader" aria-hidden="true"></span>
+          </button>
+
+
+
+          <p class="signup-prompt">New to SellSync? <a href="business.html#get-started">Sign up</a></p>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <script src="login.js?v=5"></script>
+  
+</body>
+</html>

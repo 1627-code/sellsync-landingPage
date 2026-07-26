@@ -1,0 +1,100 @@
+.signature-wrapper {
+  position: relative;
+  width: 100%;
+  height: 160px;
+}
+
+.signature-canvas {
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1; /* canvas below placeholder */
+}
+
+.signature-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #b3b7be;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 2; /* placeholder ABOVE canvas */
+}
+
+.signature{
+  color: #6b7280;
+}
+
+.pen-icon {
+  font-size: 18px;
+}
+
+.clear-btn {
+  background: #e5e7eb;
+  border: none;
+  padding: 3px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 2px;
+  margin-left: 83%;
+}
+
+
+.upload-box {
+  position: relative;
+  border: 2px dashed #cbd5e1;
+  border-radius: 6px;
+  padding: 30px;
+  text-align: center;
+  background: #fafafa;
+}
+
+.upload-box input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+}
+
+.upload-icon {
+  font-size: 26px;
+  color: #94a3b8;
+}
+
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.back-btn {
+  background: #e5e7eb;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.next-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+}

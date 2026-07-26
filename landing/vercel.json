@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/pages/business" },
+    { "source": "/login", "destination": "/pages/login" },
+    { "source": "/signup", "destination": "/pages/signup" },
+    { "source": "/coming-soon", "destination": "/pages/coming-soon" },
+    { "source": "/thanks", "destination": "/pages/thanks" },
+    { "source": "/verify-success", "destination": "/pages/verify-success" },
+    { "source": "/verify-failed", "destination": "/pages/verify-failed" },
+    { "source": "/ai", "destination": "/pages/ailanding" }
+  ]
+}

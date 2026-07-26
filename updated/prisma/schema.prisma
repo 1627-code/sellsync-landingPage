@@ -1,0 +1,249 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/**
+ * User Model
+ */
+enum UserRole {
+  OWNER
+  MANAGER
+  CASHIER
+}
+
+enum InsightSeverity {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum InsightType {
+  LOW_STOCK
+  STOCKOUT_RISK
+  SALES_SPIKE
+  SLOW_MOVING
+  TREND_CHANGE
+}
+
+model User {
+  id          String      @id @default(uuid())
+  name        String
+  email       String      @unique
+  password    String
+  role        UserRole
+  phone       String?
+  storeId     String?     // cashiers belong to a store
+  createdById String?     // which manager created this cashier
+  createdAt   DateTime    @default(now())
+
+  isVerified        Boolean   @default(false)
+  verificationToken String?   @unique
+  tokenExpiresAt    DateTime?
+
+  resetPasswordToken  String?   @unique
+  resetPasswordExpiry DateTime?
+
+  passwordChangedAt DateTime?
+
+  store       Store?      @relation("StoreUsers", fields: [storeId], references: [id])
+  createdBy   User?       @relation("ManagedUsers", fields: [createdById], references: [id])
+  managedUsers User[]     @relation("ManagedUsers")
+  isActive Boolean @default(true)
+  transactions    Transaction[]  @relation("CashierTransactions")
+
+  ownedStores     Store[]        @relation("UserStores")
+  notifications   Notification[]
+  auditLogs    AuditLog[]
+}
+
+model Store {
+  id          String     @id @default(uuid())
+  name        String
+  location    String?
+  ownerId     String
+  phone       String
+  email       String
+  createdAt   DateTime   @default(now())
+  isActive Boolean @default(true)
+
+  owner       User       @relation("UserStores", fields: [ownerId], references: [id])
+  
+  users       User[]     @relation("StoreUsers")
+
+  products        Product[]
+  transactions    Transaction[]
+  insights        Insight[]
+  forecasts       Forecast[]
+  apiKeys         ApiKey[]
+  auditLogs    AuditLog[]
+  salesGoals   SalesGoal[]
+  notifications Notification[]
+  posTerminals  POSTerminal[]
+}
+
+model Product {
+  id          String     @id @default(uuid())
+  name        String
+  sku         String?
+  category    String?
+  price       Float
+  barcode     String?  @unique  // add this
+  
+  createdAt   DateTime   @default(now())
+  isActive Boolean @default(true)
+
+  storeId     String
+  store       Store      @relation(fields: [storeId], references: [id])
+
+  inventory       Inventory?
+  transactionItems TransactionItem[]
+  forecasts        Forecast[]
+  insight         Insight[]
+}
+
+model Inventory {
+  id            String   @id @default(uuid())
+  productId     String   @unique
+  quantity      Int
+  lowThreshold  Int
+  updatedAt     DateTime @updatedAt
+
+  product       Product  @relation(fields: [productId], references: [id])
+}
+
+model Transaction {
+  id            String   @id @default(uuid())
+  storeId       String
+  cashierId     String
+  totalAmount   Float// new field for discount amount
+  paymentMethod String?
+  createdAt     DateTime @default(now())
+  
+
+  store         Store    @relation(fields: [storeId], references: [id])
+  cashier       User     @relation("CashierTransactions", fields: [cashierId], references: [id])
+
+  items         TransactionItem[]
+}
+
+model TransactionItem {
+  id            String   @id @default(uuid())
+  transactionId String
+  productId     String
+  quantity      Int
+  price         Float
+  
+
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+  product       Product     @relation(fields: [productId], references: [id])
+}
+
+model Forecast {
+  id              String   @id @default(uuid())
+  storeId         String
+  productId       String
+
+  avgDailySales   Float
+  forecastNextDay Float
+  forecastNext7   Float
+
+  stockoutDays    Float?
+  predictedStockout DateTime?
+
+  reorderQty      Float?
+
+  createdAt       DateTime @default(now())
+
+  store           Store   @relation(fields: [storeId], references: [id])
+  product         Product @relation(fields: [productId], references: [id])
+}
+
+model Insight {
+  id          String          @id @default(uuid())
+  storeId     String
+  productId   String?
+
+  type        InsightType
+  severity    InsightSeverity
+
+  title       String
+  message     String
+  summary     String?         // add this
+
+  score       Float?
+
+  createdAt   DateTime        @default(now())
+
+  store       Store           @relation(fields: [storeId], references: [id])
+  product     Product?        @relation(fields: [productId], references: [id])
+}
+
+model Notification {
+  id          String   @id @default(uuid())
+  userId      String
+  storeId    String?
+  title       String
+  message     String
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+  store       Store?    @relation(fields: [storeId], references: [id])
+}
+
+model ApiKey {
+  id        String   @id @default(uuid())
+  storeId   String
+  key       String   @unique
+  createdAt DateTime @default(now())
+
+  store     Store    @relation(fields: [storeId], references: [id])
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  storeId     String?
+  userId      String
+  action      String   // e.g. "CREATE_SALE", "DELETE_PRODUCT", "LOGIN"
+  entity      String   // e.g. "Transaction", "Product", "User"
+  entityId    String?  // the ID of the affected record
+  details     String?  // any extra info as JSON string
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+  store       Store?   @relation(fields: [storeId], references: [id])
+}
+
+model SalesGoal {
+  id          String   @id @default(uuid())
+  storeId     String
+  period      String   // "DAILY" or "WEEKLY"
+  targetAmount Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  store       Store    @relation(fields: [storeId], references: [id])
+}
+
+model POSTerminal {
+  id          String   @id @default(uuid())
+  storeId     String
+  terminalSerial String   @unique
+  label          String?  // e.g. "Front Counter", "Store 2"
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  store       Store      @relation(fields: [storeId], references: [id])
+}
+
+model NewsletterSubscription {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}

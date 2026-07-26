@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SellSync | One Platform, Total Retail Control</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/chatbot.css" />
+<script src="../config.js"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "tertiary-fixed": "#ffdcc6",
+                "tertiary-fixed-dim": "#ffb786",
+                "tertiary-container": "#b75b00",
+                "secondary": "#4648d4",
+                "on-secondary-fixed": "#07006c",
+                "on-error": "#ffffff",
+                "on-surface": "#191c1e",
+                "surface-container-low": "#f2f4f6",
+                "tertiary": "#924700",
+                "outline-variant": "#c2c6d6",
+                "secondary-container": "#6063ee",
+                "on-secondary": "#ffffff",
+                "on-tertiary-fixed-variant": "#723600",
+                "on-background": "#191c1e",
+                "border-light": "#E2E8F0",
+                "text-main": "#1E293B",
+                "on-secondary-container": "#fffbff",
+                "inverse-primary": "#adc6ff",
+                "on-tertiary": "#ffffff",
+                "on-tertiary-fixed": "#311400",
+                "on-error-container": "#93000a",
+                "text-muted": "#64748B",
+                "surface-container-lowest": "#ffffff",
+                "surface-bright": "#f7f9fb",
+                "surface-container-highest": "#e0e3e5",
+                "on-secondary-fixed-variant": "#2f2ebe",
+                "surface-dark": "#0F172A",
+                "primary-fixed-dim": "#adc6ff",
+                "inverse-surface": "#2d3133",
+                "outline": "#727785",
+                "secondary-fixed": "#e1e0ff",
+                "surface-variant": "#e0e3e5",
+                "surface-dim": "#d8dadc",
+                "surface-container": "#eceef0",
+                "on-primary-fixed-variant": "#004395",
+                "surface-tint": "#005ac2",
+                "background": "#f7f9fb",
+                "inverse-on-surface": "#eff1f3",
+                "on-primary": "#ffffff",
+                "surface-container-high": "#e6e8ea",
+                "error": "#ba1a1a",
+                "primary-fixed": "#d8e2ff",
+                "primary": "#0058be",
+                "error-container": "#ffdad6",
+                "on-surface-variant": "#424754",
+                "surface": "#f7f9fb",
+                "secondary-fixed-dim": "#c0c1ff",
+                "primary-container": "#2170e4",
+                "on-primary-container": "#fefcff",
+                "on-primary-fixed": "#001a42",
+                "on-tertiary-container": "#fffbff"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+              "spacing": {
+                "margin-mobile": "16px",
+                "margin-desktop": "40px",
+                "section-gap": "120px",
+                "gutter": "24px",
+                "container-max": "1280px",
+                "base": "8px"
+              },
+              "fontFamily": {
+                "headline-lg": ["Hanken Grotesk"],
+                "body-sm": ["Inter"],
+                "display-lg": ["Hanken Grotesk"],
+                "label-caps": ["Inter"],
+                "body-md": ["Inter"],
+                "label-md": ["Inter"],
+                "headline-md": ["Hanken Grotesk"],
+                "display-lg-mobile": ["Hanken Grotesk"],
+                "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                "headline-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                "headline-md": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                "display-lg-mobile": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-elevation {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-active .accordion-content {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 flex justify-center bg-surface/80 backdrop-blur-md px-margin-desktop py-4 max-w-container-max mx-auto border-b border-border-light">
+<div class="flex items-center justify-between w-full">
+<div class="text-headline-md font-headline-lg font-bold text-primary">SellSync</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-label-md text-label-md text-text-muted hover:text-primary transition-colors" href="#features">Solutions</a>
+<a class="font-label-md text-label-md text-text-muted hover:text-primary transition-colors" href="#about">About</a>
+<a class="font-label-md text-label-md text-text-muted hover:text-primary transition-colors" href="#pricing">Pricing</a>
+<a class="font-label-md text-label-md text-text-muted hover:text-primary transition-colors" href="#support">Support</a>
+</div>
+<div class="flex items-center space-x-4">
+<a href="/login" class="px-6 py-2 font-label-md text-label-md text-primary hover:opacity-80 transition-opacity">Sign In</a>
+<a href="#support" class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:shadow-lg transition-all">Contact us</a>
+</div>
+</div>
+</nav>
+<main class="pt-24 overflow-x-hidden">
+<!-- Hero Section -->
+<section class="max-w-container-max mx-auto px-margin-desktop py-section-gap grid lg:grid-cols-2 gap-gutter items-center">
+<div class="space-y-8">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-label-caps font-label-caps">
+                    NEW: AI-POWERED INVENTORY PREDICTIONS
+                </div>
+<h1 class="font-display-lg text-display-lg lg:text-display-lg text-on-surface">
+                    ONE PLATFORM, TOTAL <span class="text-primary">RETAIL CONTROL</span>
+</h1>
+<p class="font-body-lg text-body-lg text-text-muted max-w-xl">
+                    Connect your POS, online store, and warehouse in real-time. SellSync leverages enterprise-grade AI to optimize stock levels and unify your sales operations across all channels.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<a href="/signup" class="px-8 py-4 bg-primary text-on-primary rounded-lg font-label-md text-label-md shadow-lg hover:translate-y-[-2px] transition-all">
+                        Start Your Free Trial
+                    </a>
+<a href="#support" class="px-8 py-4 border border-primary text-primary rounded-lg font-label-md text-label-md hover:bg-primary/5 transition-all">
+                        Book a Demo
+                    </a>
+</div>
+<div class="flex items-center space-x-4 text-text-muted">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-surface"></div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-surface"></div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-surface"></div>
+</div>
+<span class="text-label-md font-label-md">Trusted by 2,500+ global retailers</span>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -z-10 w-full h-full bg-primary/5 rounded-[40px] blur-3xl transform scale-110"></div>
+<div class="rounded-xl overflow-hidden tonal-elevation border border-border-light bg-surface transition-transform hover:scale-[1.02] duration-500">
+<img class="w-full h-auto" data-alt="A high-fidelity software mockup of a modern retail dashboard on a sleek laptop screen. The dashboard displays vibrant, professional data visualizations, including line charts showing sales trends in shades of corporate blue and green, a list of low-stock inventory alerts with soft red highlights, and a clean navigation sidebar. The lighting is bright and airy, suggesting a productive daytime office environment with soft focus on the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGhY2xD87WqAy3lm_VGjZNQcu1eXsKSpNDLjNflCyu7HSmu_a9zGEZjqATJGs1bDNtSmVKmrFIZRnM3zCEic-ok7XD7ck_iKbKU6nx6I426iDhc-pJgZ93-TIovzqoJPnWltoX94l1eyRSha_9hp352tYTyC4LtxhoI88mKgzpV78NGb5zHx9L_15Ggyur03eWx-9cYp-QVd4K1yyVfs152xNvvFwUPNW2GjhrkDb0A-yVzkcVTk7F0PjpLNrww3RmJmFoec8YvYQ"/>
+</div>
+</div>
+</section>
+<!-- Features Grid -->
+<section class="max-w-container-max mx-auto px-margin-desktop py-section-gap bg-surface-container-lowest rounded-[48px]" id="features">
+<div class="text-center mb-16 space-y-4">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Precision-Engineered for Growth</h2>
+<p class="text-text-muted font-body-md max-w-2xl mx-auto">Eliminate manual data entry and human error with our automated suite of inventory and sales management tools.</p>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="p-8 bg-surface border border-border-light rounded-xl hover:border-primary/30 transition-all group">
+<div class="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 text-on-surface">Centralized Dashboard</h3>
+<p class="text-text-muted font-body-md">One unified view for all your store locations, warehouses, and online marketplaces.</p>
+</div>
+<!-- Card 2 -->
+<div class="p-8 bg-surface border border-border-light rounded-xl hover:border-primary/30 transition-all group">
+<div class="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">sync</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 text-on-surface">Sales &amp; Inventory Sync</h3>
+<p class="text-text-muted font-body-md">Instant updates across all platforms when a sale is made. Never oversell again.</p>
+</div>
+<!-- Card 3 -->
+<div class="p-8 bg-surface border border-border-light rounded-xl hover:border-primary/30 transition-all group">
+<div class="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">psychology</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 text-on-surface">AI Insights</h3>
+<p class="text-text-muted font-body-md">Predict demand peaks and get automated restocking suggestions powered by machine learning.</p>
+</div>
+<!-- Card 4 -->
+<div class="p-8 bg-surface border border-border-light rounded-xl hover:border-primary/30 transition-all group">
+<div class="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">store</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 text-on-surface">Multi-Location</h3>
+<p class="text-text-muted font-body-md">Easily manage stock transfers and store-specific performance metrics from anywhere.</p>
+</div>
+<!-- Card 5 -->
+<div class="p-8 bg-surface border border-border-light rounded-xl hover:border-primary/30 transition-all group">
+<div class="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">bar_chart</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 text-on-surface">Reports</h3>
+<p class="text-text-muted font-body-md">Customizable reports with deep-dive analytics on profit margins and turnover rates.</p>
+</div>
+<!-- Card 6 -->
+<div class="p-8 bg-surface border border-border-light rounded-xl hover:border-primary/30 transition-all group">
+<div class="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">trending_up</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 text-on-surface">Scalability</h3>
+<p class="text-text-muted font-body-md">Built to grow with your business, from a single boutique to a nationwide retail chain.</p>
+</div>
+</div>
+</section>
+<!-- Steps Section -->
+<section class="max-w-container-max mx-auto px-margin-desktop py-section-gap">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">How It Works</h2>
+</div>
+<div class="grid md:grid-cols-3 gap-12 relative">
+<div class="hidden md:block absolute top-12 left-1/4 right-1/4 h-px border-t border-dashed border-primary/30"></div>
+<div class="flex flex-col items-center text-center space-y-4">
+<div class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md z-10">1</div>
+<h3 class="font-headline-md text-headline-md">Connect Channels</h3>
+<p class="text-text-muted">Integrate your Shopify, Amazon, and POS systems in minutes with our native connectors.</p>
+</div>
+<div class="flex flex-col items-center text-center space-y-4">
+<div class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md z-10">2</div>
+<h3 class="font-headline-md text-headline-md">Import Data</h3>
+<p class="text-text-muted">Our smart importer cleanses and categorizes your inventory data automatically.</p>
+</div>
+<div class="flex flex-col items-center text-center space-y-4">
+<div class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md z-10">3</div>
+<h3 class="font-headline-md text-headline-md">Start Selling</h3>
+<p class="text-text-muted">Manage orders and optimize stock levels from a single source of truth.</p>
+</div>
+</div>
+</section>
+<!-- Social Proof -->
+<section class="bg-primary py-section-gap">
+<div class="max-w-4xl mx-auto px-margin-desktop text-center">
+<div class="mb-8 flex justify-center">
+<span class="material-symbols-outlined text-on-primary/20 text-8xl" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+</div>
+<blockquote class="font-headline-lg text-on-primary mb-12 italic">
+                    "SellSync transformed how we handle multi-channel sales. We've reduced our out-of-stock incidents by 45% in the first quarter alone. It's the brain of our retail operation."
+                </blockquote>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest border-4 border-on-primary/20 mb-4 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female entrepreneur in her mid-30s. She has a warm, confident smile and is dressed in professional business casual attire. The background is a brightly lit, modern office with soft-focus greenery and glass partitions. The lighting is soft and flattering, emphasizing a clean, light-mode aesthetic that aligns with a high-end corporate brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAufIYl28A_uLxD2TW3XBAbVFVxrpBUa0YjVlfF64IkkSBPTon27ZLlwfx7vWmU_jKohdAQMqLm-QKxH-sThGOGkEjNJCyollAVdNt3UN7jYv6RHQGhGx99ZbIX2UgmYtWyDnffIqzmm1t9vCWYmpeVbQ-d36rTZcK-Wk7ZuUi5sWXEBPgYP7prlg3Lit5Tk0xEVAQ5l8zHkrkT5XZySWpKg7ARNtdkhD52gim9jozzW8k4YdCOnkpcO3rSOwp8QviGmQ5zdkaetvs"/>
+</div>
+<div class="font-label-md text-label-md text-on-primary">Sarah Jenkins</div>
+<div class="text-on-primary/70 font-body-sm text-body-sm">CEO, Urban Threads Boutique</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="max-w-container-max mx-auto px-margin-desktop py-section-gap" id="pricing">
+<div class="text-center mb-16 space-y-4">
+<h2 class="font-headline-lg text-headline-lg">Simple, Transparent Pricing</h2>
+<p class="text-text-muted">Scale your operations with a plan that fits your current volume.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-gutter">
+<!-- Plan 1 -->
+<div class="p-8 bg-surface border border-border-light rounded-xl tonal-elevation flex flex-col">
+<h3 class="font-headline-md text-headline-md mb-2">Starter</h3>
+<div class="flex items-baseline mb-6">
+<span class="text-display-lg-mobile font-headline-lg">$49</span>
+<span class="text-text-muted ml-2">/mo</span>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center text-text-muted">
+<span class="material-symbols-outlined text-primary mr-2 text-xl">check_circle</span>
+                            Up to 500 orders/mo
+                        </li>
+<li class="flex items-center text-text-muted">
+<span class="material-symbols-outlined text-primary mr-2 text-xl">check_circle</span>
+                            2 Sales Channels
+                        </li>
+<li class="flex items-center text-text-muted">
+<span class="material-symbols-outlined text-primary mr-2 text-xl">check_circle</span>
+                            Basic Reporting
+                        </li>
+</ul>
+<a href="/signup?plan=starter" class="block w-full py-4 border border-primary text-primary rounded-lg font-label-md hover:bg-primary/5 transition-all text-center">Get Started</a>
+</div>
+<!-- Plan 2 -->
+<div class="p-8 bg-surface border-2 border-primary rounded-xl tonal-elevation relative transform scale-105 z-10 flex flex-col">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-on-primary px-4 py-1 rounded-full text-label-caps font-label-caps">MOST POPULAR</div>
+<h3 class="font-headline-md text-headline-md mb-2">Growth</h3>
+<div class="flex items-baseline mb-6">
+<span class="text-display-lg-mobile font-headline-lg">$149</span>
+<span class="text-text-muted ml-2">/mo</span>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center text-text-main">
+<span class="material-symbols-outlined text-primary mr-2 text-xl">check_circle</span>
+                            Unlimited Orders
+                        </li>
+<li class="flex items-center text-text-main">
+<span class="material-symbols-outlined text-primary mr-2 text-xl">check_circle</span>
+                            5 Sales Channels
+                        </li>
+<li class="flex items-center text-text-main">
+<span class="material-symbols-outlined text-primary mr-2 text-xl">check_circle</span>
+                            AI Demand Forecasting
+                        </li>
+<li class="flex items-center text-text-main">
+<span class="material-symbols-outlined text-primary mr-2 text-xl">check_circle</span>
+                            Multi-Warehouse Support
+                        </li>
+</ul>
+<a href="/signup?plan=growth" class="block w-full py-4 bg-primary text-on-primary rounded-lg font-label-md shadow-lg hover:opacity-90 transition-all text-center">Choose Growth</a>
+</div>
+<!-- Plan 3 -->
+<div class="p-8 bg-surface border border-border-light rounded-xl tonal-elevation flex flex-col">
+<h3 class="font-headline-md text-headline-md mb-2">Enterprise</h3>
+<div class="flex items-baseline mb-6">
+<span class="text-display-lg-mobile font-headline-lg">Custom</span>
+</div>
+<p class="text-text-muted mb-10">Tailored solutions for high-volume retailers with complex infrastructure.</p>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center text-text-muted">
+<span class="material-symbols-outlined text-primary mr-2 text-xl">check_circle</span>
+                            Unlimited Everything
+                        </li>
+<li class="flex items-center text-text-muted">
+<span class="material-symbols-outlined text-primary mr-2 text-xl">check_circle</span>
+                            Dedicated Account Manager
+                        </li>
+<li class="flex items-center text-text-muted">
+<span class="material-symbols-outlined text-primary mr-2 text-xl">check_circle</span>
+                            Custom API Integrations
+                        </li>
+</ul>
+<a href="#support" class="block w-full py-4 border border-primary text-primary rounded-lg font-label-md hover:bg-primary/5 transition-all text-center">Contact Sales</a>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="max-w-3xl mx-auto px-margin-desktop py-section-gap">
+<h2 class="font-headline-lg text-headline-lg text-center mb-12">Frequently Asked Questions</h2>
+<div class="space-y-4">
+<div class="border border-border-light rounded-xl bg-surface transition-all overflow-hidden group">
+<button class="w-full p-6 text-left flex justify-between items-center hover:bg-surface-container-low transition-colors" onclick="this.parentElement.classList.toggle('accordion-active')">
+<span class="font-headline-md text-body-lg text-on-surface">Does SellSync integrate with my current POS?</span>
+<span class="material-symbols-outlined transition-transform group-[.accordion-active]:rotate-180">expand_more</span>
+</button>
+<div class="accordion-content">
+<div class="p-6 pt-0 text-text-muted font-body-md">
+                            Yes! SellSync offers native integrations with most major POS systems including Square, Clover, and Lightspeed. If you use a custom system, our API makes integration seamless.
+                        </div>
+</div>
+</div>
+<div class="border border-border-light rounded-xl bg-surface transition-all overflow-hidden group">
+<button class="w-full p-6 text-left flex justify-between items-center hover:bg-surface-container-low transition-colors" onclick="this.parentElement.classList.toggle('accordion-active')">
+<span class="font-headline-md text-body-lg text-on-surface">How secure is my data?</span>
+<span class="material-symbols-outlined transition-transform group-[.accordion-active]:rotate-180">expand_more</span>
+</button>
+<div class="accordion-content">
+<div class="p-6 pt-0 text-text-muted font-body-md">
+                            We use industry-standard AES-256 encryption for all data at rest and TLS 1.3 for data in transit. Your business data is isolated and protected by enterprise-grade firewalls.
+                        </div>
+</div>
+</div>
+<div class="border border-border-light rounded-xl bg-surface transition-all overflow-hidden group">
+<button class="w-full p-6 text-left flex justify-between items-center hover:bg-surface-container-low transition-colors" onclick="this.parentElement.classList.toggle('accordion-active')">
+<span class="font-headline-md text-body-lg text-on-surface">Can I trial the AI features?</span>
+<span class="material-symbols-outlined transition-transform group-[.accordion-active]:rotate-180">expand_more</span>
+</button>
+<div class="accordion-content">
+<div class="p-6 pt-0 text-text-muted font-body-md">
+                            Absolutely. All plans come with a 14-day free trial that includes full access to our AI Demand Forecasting and automated insights suite.
+                        </div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="max-w-container-max mx-auto px-margin-desktop py-section-gap" id="support">
+<div class="bg-surface border border-border-light rounded-[32px] overflow-hidden grid lg:grid-cols-2">
+<div class="p-12 lg:p-20">
+<h2 class="font-headline-lg text-headline-lg mb-4">Get in Touch</h2>
+<p class="text-text-muted mb-10">Have questions? Our retail experts are ready to help you optimize your inventory.</p>
+<form class="space-y-6" id="ailandingContactForm">
+<div id="ailandingContactMessage" class="text-sm text-center mb-4 hidden"></div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="font-label-md text-label-md">First Name</label>
+<input id="ailContactFirstName" class="w-full px-4 py-3 bg-surface-container-low border border-border-light rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md">Last Name</label>
+<input id="ailContactLastName" class="w-full px-4 py-3 bg-surface-container-low border border-border-light rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md">Work Email</label>
+<input id="ailContactEmail" class="w-full px-4 py-3 bg-surface-container-low border border-border-light rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md">Message</label>
+<textarea id="ailContactMessage" class="w-full px-4 py-3 bg-surface-container-low border border-border-light rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" rows="4"></textarea>
+</div>
+<button type="submit" class="w-full py-4 bg-primary text-on-primary rounded-lg font-headline-md shadow-lg hover:shadow-primary/20 transition-all">Send Message</button>
+</form>
+</div>
+<div class="bg-primary p-12 lg:p-20 text-on-primary flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md mb-8">Contact Information</h3>
+<div class="space-y-8">
+<div class="flex items-start">
+<span class="material-symbols-outlined mr-4">mail</span>
+<div>
+<div class="font-label-md text-label-md">Email Support</div>
+<div class="text-on-primary/70">hello@sellsync.io</div>
+</div>
+</div>
+<div class="flex items-start">
+<span class="material-symbols-outlined mr-4">call</span>
+<div>
+<div class="font-label-md text-label-md">Call Us</div>
+<div class="text-on-primary/70">+1 (888) RETAIL-0</div>
+</div>
+</div>
+<div class="flex items-start">
+<span class="material-symbols-outlined mr-4">location_on</span>
+<div>
+<div class="font-label-md text-label-md">Headquarters</div>
+<div class="text-on-primary/70">123 Commerce Way,<br/>San Francisco, CA 94103</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 p-8 bg-on-primary/10 rounded-2xl">
+<div class="font-label-md text-label-md mb-2">Live Support Hours</div>
+<p class="text-on-primary/70">Monday — Friday: 9am - 6pm EST</p>
+<p class="text-on-primary/70">Saturday: 10am - 4pm EST</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto border-t border-border-light">
+<div class="space-y-6">
+<div class="text-headline-md font-headline-lg font-bold text-primary">SellSync</div>
+<p class="text-text-muted font-body-sm text-body-sm max-w-xs">Empowering the next generation of retailers with intelligent inventory synchronization and AI-driven growth tools.</p>
+<div class="flex space-x-4">
+<a class="text-text-muted hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-text-muted hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">share</span></a>
+<a class="text-text-muted hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+</div>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-on-surface mb-6">Product</h4>
+<ul class="space-y-4">
+<li><a class="text-text-muted hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Inventory Sync</a></li>
+<li><a class="text-text-muted hover:text-primary transition-colors font-body-sm text-body-sm" href="#">AI Predictions</a></li>
+<li><a class="text-text-muted hover:text-primary transition-colors font-body-sm text-body-sm" href="#">POS Integrations</a></li>
+<li><a class="text-text-muted hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Reporting</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-on-surface mb-6">Company</h4>
+<ul class="space-y-4">
+<li><a class="text-text-muted hover:text-primary transition-colors font-body-sm text-body-sm" href="#">About Us</a></li>
+<li><a class="text-text-muted hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Careers</a></li>
+<li><a class="text-text-muted hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Blog</a></li>
+<li><a class="text-text-muted hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Press Kit</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<h4 class="font-label-caps text-label-caps text-on-surface mb-6">Newsletter</h4>
+<p class="text-text-muted font-body-sm text-body-sm">Get retail strategy tips delivered weekly.</p>
+<form class="flex" id="ailandingNewsletterForm">
+<input id="ailNewsletterEmail" class="w-full px-4 py-2 bg-surface border border-border-light rounded-l-lg outline-none" placeholder="Email address" type="email" required/>
+<button type="submit" class="px-4 py-2 bg-primary text-on-primary rounded-r-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</form>
+<div class="text-text-muted font-label-caps text-[10px] mt-8">© 2024 SellSync. All rights reserved.</div>
+</div>
+</footer>
+<script src="../js/chatbot.js"></script>
+<script src="../js/newsletter.js"></script>
+<script>
+(function() {
+    'use strict';
+
+    // Scroll reveal effects
+    document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        const scrollElements = document.querySelectorAll('section, .grid > div');
+        scrollElements.forEach(el => {
+            el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+    });
+
+    // Contact form submission
+    var form = document.getElementById('ailandingContactForm');
+    var msgDiv = document.getElementById('ailandingContactMessage');
+
+    function showMsg(type, text) {
+        msgDiv.textContent = text;
+        msgDiv.className = 'text-sm text-center mb-4 ' + (type === 'success' ? 'text-green-600' : 'text-red-600');
+        msgDiv.classList.remove('hidden');
+    }
+
+    function hideMsg() {
+        msgDiv.className = 'text-sm text-center mb-4 hidden';
+        msgDiv.textContent = '';
+    }
+
+    if (form && msgDiv) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            hideMsg();
+            var firstName = (document.getElementById('ailContactFirstName') && document.getElementById('ailContactFirstName').value || '').trim();
+            var lastName = (document.getElementById('ailContactLastName') && document.getElementById('ailContactLastName').value || '').trim();
+            var email = (document.getElementById('ailContactEmail') && document.getElementById('ailContactEmail').value || '').trim();
+            var message = (document.getElementById('ailContactMessage') && document.getElementById('ailContactMessage').value || '').trim();
+            var name = (firstName + ' ' + lastName).trim() || email.split('@')[0];
+
+            if (!name || !email || !message) {
+                showMsg('error', 'Please fill in all required fields.');
+                return;
+            }
+
+            var btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            fetch((typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'https://sellsync-backend.vercel.app') + '/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name, email: email, message: message, inquiry: 'General', consent: true })
+            }).then(function(r) { return r.json(); }).then(function(data) {
+                btn.disabled = false;
+                btn.textContent = 'Send Message';
+                if (data.ok || data.message) {
+                    showMsg('success', "Message sent! We'll get back to you soon.");
+                    form.reset();
+                } else {
+                    showMsg('error', data.error || 'Something went wrong. Please try again.');
+                }
+            }).catch(function() {
+                btn.disabled = false;
+                btn.textContent = 'Send Message';
+                showMsg('error', 'Could not send message. Please try again later.');
+            });
+        });
+    }
+
+    // Newsletter form
+    var nlForm = document.getElementById('ailandingNewsletterForm');
+    if (nlForm) {
+        nlForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var email = document.getElementById('ailNewsletterEmail') && document.getElementById('ailNewsletterEmail').value.trim();
+            if (!email) return;
+
+            var btn = nlForm.querySelector('button[type="submit"]');
+            btn.disabled = true;
+
+            fetch((typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'https://sellsync-backend.vercel.app') + '/api/newsletter', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
+            }).then(function(r) { return r.json(); }).then(function(data) {
+                btn.disabled = false;
+                if (data.ok || data.message) {
+                    nlForm.innerHTML = '<p class="text-green-600 text-sm">Thanks for subscribing!</p>';
+                }
+            }).catch(function() {
+                btn.disabled = false;
+            });
+        });
+    }
+})();
+</script>
+</body></html>

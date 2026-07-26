@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complete payment | SellSync</title>
+  <link rel="stylesheet" href="../css/payment.css" />
+</head>
+<body>
+  <div class="payment-wrapper">
+    <div class="payment-card">
+      <header class="payment-header">
+        <h1 class="logo">SellSync</h1>
+        <p class="value-statement">Complete your payment to start your free trial.</p>
+      </header>
+
+      <div id="paymentMessage" class="form-message" role="alert" aria-live="polite"></div>
+
+      <section class="payment-section" id="paymentSection">
+        <div class="plan-summary" id="planSummary">
+          <h2 id="planName">—</h2>
+          <p class="plan-desc" id="planDesc">—</p>
+          <p class="plan-price" id="planPrice">—</p>
+          <p class="plan-note">14-day free trial. You will not be charged until the trial ends.</p>
+        </div>
+
+        <form id="paymentForm" novalidate>
+          <div class="field">
+            <label for="cardName">Name on card</label>
+            <input type="text" id="cardName" name="cardName" required placeholder="e.g. Omoyemi Daniel" autocomplete="cc-name" />
+            <span class="field-error" id="cardNameError"></span>
+          </div>
+          <div class="field">
+            <label for="cardNumber">Card number</label>
+            <input type="text" id="cardNumber" name="cardNumber" required placeholder="1234 7586 9012 3456" autocomplete="cc-number" inputmode="numeric" maxlength="19" />
+            <span class="field-error" id="cardNumberError"></span>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="cardExpiry">Expiry</label>
+              <input type="text" id="cardExpiry" name="cardExpiry" required placeholder="MM/YY" autocomplete="cc-exp" inputmode="numeric" maxlength="5" />
+              <span class="field-error" id="cardExpiryError"></span>
+            </div>
+            <div class="field">
+              <label for="cardCvc">CVC</label>
+              <input type="text" id="cardCvc" name="cardCvc" required placeholder="123" autocomplete="cc-csc" inputmode="numeric" maxlength="4" />
+              <span class="field-error" id="cardCvcError"></span>
+            </div>
+          </div>
+          <p class="secure-note">Your payment is secure. We do not store full card details.</p>
+          <button type="submit" class="btn-primary" id="payBtn">
+            <span class="btn-text">Pay now</span>
+            <span class="btn-loader" aria-hidden="true"></span>
+          </button>
+        </form>
+      </section>
+
+      <footer class="payment-footer">
+        <p class="trust-note">Your data is secure and private.</p>
+        <p class="back-prompt"><a href="business.html#get-started">← Back to plans</a></p>
+      </footer>
+    </div>
+  </div>
+
+  <script src="../js/payment.js"></script>
+</body>
+</html>

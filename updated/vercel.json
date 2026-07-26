@@ -23,6 +23,7 @@
     }
   ],
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "LANDING_URL": "https://sellsync.store"
   }
 }

@@ -61,6 +61,12 @@ export const subscribeNewsletter = async (req, res) => {
             subject: "Welcome to SellSync Newsletter!",
             text: "Thank you for subscribing to the SellSync newsletter! Stay tuned for updates, tips, and exclusive offers.",
         });
+        await transporter.sendMail({
+            from: `"SellSync Newsletter" <${process.env.EMAIL_USER || "noreply@sellsync.com"}>`,
+            to: CONTACT_TO,
+            subject: `New Newsletter Subscriber – ${email}`,
+            text: `New newsletter subscription\n\nEmail: ${email}\nTime: ${new Date().toISOString()}`,
+        });
         res.json({ ok: true, message: "Subscribed successfully!" });
     } catch (error) {
         console.error("Newsletter subscription error:", error);

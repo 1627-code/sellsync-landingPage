@@ -319,27 +319,20 @@ const updateUser = async (req, res) => {
  */
 const forgotPassword = async (req, res) => {
     try {
-        // Extract email from request body
         const { email } = req.body;
 
-        // Validate that email field is provided
         if(!email) return res.status(400).json({
             message: "Email field required!"
         });
 
-        // Find user by email in the database
         const user = await prisma.user.findUnique({
             where: { email },
         });
 
-        // Return generic error message if user doesn't exist
-        // Using "Invalid Credentials" instead of "User not found" prevents email enumeration attacks
         if(!user) return res.status(404).json({
             message: "Invalid Credentials!"
         });
 
-        // Check if user account is active
-        // Deactivated accounts cannot reset passwords
         if (!user.isActive) {
             return res.status(401).json({
                 success: false,
@@ -347,39 +340,25 @@ const forgotPassword = async (req, res) => {
             });
         }
 
-        // Generate random reset token (32 bytes converted to hex string)
-        // This token will be used to verify the password reset request
-        const token = crypto.randomBytes(32).toString("hex");
-        
-        // Set token expiration to 24 hours from now
-        // After 24 hours, the reset link will be invalid
-        const expiry = new Date(Date.now() + 1000 * 60 * 60 * 24);
-        
-        // Store reset token and expiration in user's database record
-        // These will be validated when user submits new password
+        const code = String(Math.floor(100000 + Math.random() * 900000));
+        const expiry = new Date(Date.now() + 1000 * 60 * 15);
+
         await prisma.user.update({
             where: { id: user.id },
             data: {
-                resetPasswordToken: token,      // Store token for verification
-                resetPasswordExpiry: expiry     // Store expiration timestamp
+                resetPasswordToken: code,
+                resetPasswordExpiry: expiry
             }
         });
 
-        // Construct password reset URL pointing to frontend
-        // Token is embedded in URL for verification
-        const resetUrl = `${process.env.BASE_URL}/api/auth/reset-password?token=${token}`;
+        await sendResetEmail(email, code);
 
-        // Send password reset email with the reset link
-        await sendResetEmail(email, resetUrl);
-
-        // Return generic success message
-        // Using vague message prevents email enumeration (security best practice)
         res.status(200).json({ 
-            message: "If that email exists, a reset link has been sent." 
+            message: "If that email exists, a reset code has been sent.",
+            email: email
         });
 
     } catch (error) {
-        // Log and return server error with detailed error message
         res.status(500).json({
             message: "Internal Server Error", 
             error: error.message

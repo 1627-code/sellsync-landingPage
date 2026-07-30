@@ -43,7 +43,7 @@ router.post("/forgotPassword", forgotPassword);
  * Updates password and clears reset token
  * Access: Public (token-based)
  */
-router.patch("/reset-password", resetPassword);
+router.post("/reset-password", resetPassword);
 
 /**
  * POST /api/auth/login

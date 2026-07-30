@@ -74,18 +74,20 @@ export const sendVerificationEmail = async (email, url) => {
  * @param {string} url - Password reset URL with embedded token
  * @returns {Promise<void>} Resolves when email is sent successfully
  */
-export const sendResetEmail = async (email, url) => {
-    // Send email using configured transporter
+export const sendResetEmail = async (email, code) => {
     await transporter.sendMail({
-        from: '"Sellsync" <noreply@Sellsync.com>',  // Sender display name and email
-        to: email,                                   // Recipient's email address
-        subject: "Reset email link",                // Email subject line
+        from: '"Sellsync" <noreply@Sellsync.com>',
+        to: email,
+        subject: "Your Password Reset Code",
         html: `
             ${LOGO}
-            <p>Click the link below to reset your password:</p>
-            <a href="${url}">Reset password</a>
-            <p>This link expires in 24 hours.</p>
-        `,  // HTML email body with reset link and expiration notice
+            <p>Your password reset code is:</p>
+            <div style="text-align:center;margin:24px 0;">
+              <span style="display:inline-block;font-size:32px;font-weight:bold;letter-spacing:8px;background:#f0f4ff;padding:16px 32px;border-radius:12px;color:#2979FF;">${code}</span>
+            </div>
+            <p>This code expires in 15 minutes.</p>
+            <p>If you did not request this, please ignore this email.</p>
+        `,
     });
 }
 

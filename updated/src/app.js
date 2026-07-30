@@ -40,7 +40,7 @@ const corsOrigins = process.env.CORS_ORIGINS
   : ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:8080'];
 
 app.use(cors({
-  origin: '*',
+  origin: corsOrigins,
   credentials: true
 }));
 // Express JSON - Parses incoming JSON request bodies

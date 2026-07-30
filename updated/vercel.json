@@ -24,7 +24,7 @@
   ],
   "env": {
     "NODE_ENV": "production",
-    "LANDING_URL": "https://updatedlanding.vercel.app",
-    "CORS_ORIGINS": "https://updatedlanding.vercel.app,https://sellsync.store"
+    "LANDING_URL": "https://sellsync.store",
+    "CORS_ORIGINS": "https://sellsync.store"
   }
 }
